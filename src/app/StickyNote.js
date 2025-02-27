@@ -112,9 +112,9 @@ export default function DraggableDiv() {
                         {/* Move */}
                     </span>
                     <div className="flex space-x-2">
-                        <button onClick={() => setFontSize(fontSize + 1)} onTouchStart={() => setFontSize(fontSize + 1)}>A+</button>
-                        <button onClick={() => setFontSize(fontSize - 1)} onTouchStart={() => setFontSize(fontSize - 1)}>A-</button>
-                        <button onClick={() => setIsBold(!isBold)} onTouchStart={() => setIsBold(!isBold)}>B</button>
+                        <button onClick={() => setFontSize(fontSize + 1)} onTouchEnd={() => setFontSize(fontSize + 1)}>A+</button>
+                        <button onClick={() => setFontSize(fontSize - 1)} onTouchEnd={() => setFontSize(fontSize - 1)}>A-</button>
+                        <button onClick={() => setIsBold(!isBold)} onTouchEnd={() => setIsBold(!isBold)}>B</button>
                         <input
                             type="color"
                             value={color}
