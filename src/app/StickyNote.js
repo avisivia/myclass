@@ -34,9 +34,22 @@ export default function DraggableDiv() {
             setStartPos({ x: e.clientX - position.x, y: e.clientY - position.y });
         };
 
+        const dragTouchStart = (e) => {
+            e.preventDefault();
+            setDragging(true);
+            const touch = e.touches[0];
+            setStartPos({ x: touch.clientX - position.x, y: touch.clientY - position.y });
+        };
+
         const elementDrag = (e) => {
             if (!dragging) return;
             setPosition({ x: e.clientX - startPos.x, y: e.clientY - startPos.y });
+        };
+
+        const elementTouchMove = (e) => {
+            if (!dragging) return;
+            const touch = e.touches[0];
+            setPosition({ x: touch.clientX - startPos.x, y: touch.clientY - startPos.y });
         };
 
         const closeDragElement = () => {
@@ -44,13 +57,19 @@ export default function DraggableDiv() {
         };
 
         header.addEventListener('mousedown', dragMouseDown);
+        header.addEventListener('touchstart', dragTouchStart);
         document.addEventListener('mousemove', elementDrag);
+        document.addEventListener('touchmove', elementTouchMove);
         document.addEventListener('mouseup', closeDragElement);
+        document.addEventListener('touchend', closeDragElement);
 
         return () => {
             header.removeEventListener('mousedown', dragMouseDown);
+            header.removeEventListener('touchstart', dragTouchStart);
             document.removeEventListener('mousemove', elementDrag);
+            document.removeEventListener('touchmove', elementTouchMove);
             document.removeEventListener('mouseup', closeDragElement);
+            document.removeEventListener('touchend', closeDragElement);
         };
     }, [dragging, position, startPos]);
 
