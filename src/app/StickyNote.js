@@ -2,17 +2,28 @@
 
 import { useRef, useEffect, useState } from 'react';
 
+const getInitialState = () => {
+    return {
+        note: localStorage.getItem('stickyNote') || '',
+        fontSize: parseInt(localStorage.getItem('fontSize')) || 16,
+        isBold: localStorage.getItem('isBold') === 'true',
+        color: localStorage.getItem('color') || '#000000',
+        textareaSize: JSON.parse(localStorage.getItem('textareaSize')) || { width: '100%', height: '128px' }
+    };
+};
+
 export default function DraggableDiv() {
     const divRef = useRef(null);
     const headerRef = useRef(null);
     const [position, setPosition] = useState({ x: 0, y: 0 });
     const [dragging, setDragging] = useState(false);
     const [startPos, setStartPos] = useState({ x: 0, y: 0 });
-    const [note, setNote] = useState(() => localStorage.getItem('stickyNote') || '');
-    const [fontSize, setFontSize] = useState(() => parseInt(localStorage.getItem('fontSize')) || 16);
-    const [isBold, setIsBold] = useState(() => localStorage.getItem('isBold') === 'true');
-    const [color, setColor] = useState(() => localStorage.getItem('color') || '#000000');
-    const [textareaSize, setTextareaSize] = useState(() => JSON.parse(localStorage.getItem('textareaSize')) || { width: '100%', height: '128px' });
+    const { note: initialNote, fontSize: initialFontSize, isBold: initialIsBold, color: initialColor, textareaSize: initialTextareaSize } = getInitialState();
+    const [note, setNote] = useState(initialNote);
+    const [fontSize, setFontSize] = useState(initialFontSize);
+    const [isBold, setIsBold] = useState(initialIsBold);
+    const [color, setColor] = useState(initialColor);
+    const [textareaSize, setTextareaSize] = useState(initialTextareaSize);
 
     useEffect(() => {
         const div = divRef.current;
@@ -83,7 +94,6 @@ export default function DraggableDiv() {
                 >
                     <span>
                         {/* Move */}
-
                     </span>
                     <div className="flex space-x-2">
                         <button onClick={() => setFontSize(fontSize + 1)}>A+</button>
