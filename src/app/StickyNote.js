@@ -8,11 +8,11 @@ export default function DraggableDiv() {
     const [position, setPosition] = useState({ x: 0, y: 0 });
     const [dragging, setDragging] = useState(false);
     const [startPos, setStartPos] = useState({ x: 0, y: 0 });
-    const [note, setNote] = useState(() => localStorage.getItem('stickyNote') || '');
-    const [fontSize, setFontSize] = useState(() => parseInt(localStorage.getItem('fontSize')) || 16);
-    const [isBold, setIsBold] = useState(() => localStorage.getItem('isBold') === 'true');
-    const [color, setColor] = useState(() => localStorage.getItem('color') || '#000000');
-    const [textareaSize, setTextareaSize] = useState(() => JSON.parse(localStorage.getItem('textareaSize')) || { width: '100%', height: '128px' });
+    const [note, setNote] = useState(localStorage.getItem('stickyNote') || '');
+    const [fontSize, setFontSize] = useState(parseInt(localStorage.getItem('fontSize')) || 16);
+    const [isBold, setIsBold] = useState(localStorage.getItem('isBold') === 'true');
+    const [color, setColor] = useState(localStorage.getItem('color') || '#000000');
+    const [textareaSize, setTextareaSize] = useState(JSON.parse(localStorage.getItem('textareaSize')) || { width: '100%', height: '128px' });
 
     useEffect(() => {
         const div = divRef.current;
