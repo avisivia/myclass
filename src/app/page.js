@@ -2,7 +2,6 @@
 import styles from "../app/main.module.css"
 import { motion } from "framer-motion";
 import { ResizableBox } from "react-resizable";
-import Note from "./note";
 import CountdownTimer from "./CountdownTimer";
 import StickyNote from "./StickyNote";
 
