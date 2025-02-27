@@ -8,23 +8,20 @@ import StickyNote from "./StickyNote";
 export default function Home() {
 
   return (
-    <div className={styles.container}>
-     
-     
-     
+    <div>
+
       <StickyNote />
-     
-     
-     
-     
+
       <motion.div
         drag
         dragMomentum={false}
         dragElastic={0}
         dragListener={true}
+        style={{ maxWidth: "fit-content" }}
       >
         <CountdownTimer />
       </motion.div>
+
     </div>
   );
 }

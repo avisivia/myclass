@@ -94,7 +94,17 @@ export default function DraggableDiv() {
     }, [textareaSize]);
 
     const handleTextareaResize = (e) => {
-        setTextareaSize({ width: `${e.target.clientWidth}px`, height: `${e.target.clientHeight}px` });
+        const newWidth = Math.max(e.target.offsetWidth, 200);
+        const newHeight = Math.max(e.target.offsetHeight, 200);
+        setTextareaSize({ width: `${newWidth}px`, height: `${newHeight}px` });
+    };
+    
+    const handleTouchMove = (e) => {
+        e.preventDefault();
+        const textarea = e.target;
+        const newWidth = Math.max(textarea.offsetWidth, 200);
+        const newHeight = Math.max(textarea.offsetHeight, 200);
+        setTextareaSize({ width: `${newWidth}px`, height: `${newHeight}px` });
     };
 
     return (
@@ -111,7 +121,7 @@ export default function DraggableDiv() {
                     <span>
                         {/* Move */}
                     </span>
-                    <div className="flex space-x-2">
+                    <div className="flex space-x-2 bg-blue-500">
                         <button onClick={() => setFontSize(fontSize + 1)} onTouchEnd={() => setFontSize(fontSize + 1)}>A+</button>
                         <button onClick={() => setFontSize(fontSize - 1)} onTouchEnd={() => setFontSize(fontSize - 1)}>A-</button>
                         <button onClick={() => setIsBold(!isBold)} onTouchEnd={() => setIsBold(!isBold)}>B</button>
@@ -123,17 +133,20 @@ export default function DraggableDiv() {
                     </div>
                 </div>
                 <textarea
-                    className="w-full h-32 p-2 border-t border-gray-400 text-black resize"
+                    className="w-full h-32 p-2 bg-white border-t border-gray-400 text-black resize"
                     placeholder="Write your text here..."
                     value={note}
                     onChange={(e) => setNote(e.target.value)}
                     onMouseUp={handleTextareaResize}
+                    onTouchMove={handleTouchMove}
                     style={{
                         fontSize: `${fontSize}px`,
                         fontWeight: isBold ? 'bold' : 'normal',
                         color: color,
                         width: textareaSize.width,
                         height: textareaSize.height,
+                        minWidth: '200px',
+                        minHeight: '200px',
                     }}
                 ></textarea>
             </div>
